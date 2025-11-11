@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <!-- Configuração de caracteres UTF-8, compatível com acentos e símbolos -->
+    <meta charset="UTF-8" />
+
+    <!-- LAYOUT MOBILE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Link para o CSS -->
+       <link rel="stylesheet" href="./assets/css/style.css"/>
+
+    <!-- Favicon (PNG recomendado para compatibilidade com Safari) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/app-de-clima.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/app-de-clima.png">
+    <link rel="shortcut icon" href="./assets/img/app-de-clima.png">
+   
+    <!-- Servidores de Fontes do Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Fonte do Google - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <!-- Título da Pagina -->
+    <title>Previsão do Tempo</title>
+</head>
+
+<body>
+
+    <div class="container">
+    <!-- Área Principal do Site -->
+    <h1>☀️🌤️🌦️ Previsão do Tempo 🌧️⛈️🌩️</h1>
+    <form id="weatherForm">
+      <input 
+        type="text" 
+        id="cityInput" 
+        placeholder="Digite o nome da cidade..." 
+      />
+      <button type="submit">Buscar</button>
+    </form>
+
+    <div id="result" class="result">
+      <!-- Resultado do clima será exibido aqui -->
+    </div>
+  </div>
+
+  <script src="./assets/js/script.js"></script>
+</body>
+</html>
