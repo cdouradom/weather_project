@@ -9,6 +9,7 @@
   --muted: #6b7a90;
 }
 
+/* Reset */
 *{ margin:0; padding:0; box-sizing:border-box; font-family:"Poppins",sans-serif; }
 
 html,body{ height:100%; }
@@ -16,13 +17,14 @@ html,body{ height:100%; }
 body{
   min-height:100vh;
   display:flex;
-  align-items:center;        /* centraliza verticalmente */
-  justify-content:center;    /* centraliza horizontalmente */
+  align-items:center;
+  justify-content:center;
   background: linear-gradient(to bottom, #0b3d91 0%, #3da2ff 60%, #a9d8ff 100%);
   color:var(--text);
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   padding:20px;
+  transition: background 0.5s ease;
 }
 
 /* Card principal */
@@ -71,33 +73,6 @@ input[type="text"]{
 input[type="text"]:focus{
   border-color: rgba(0,119,255,0.9);
   box-shadow: 0 4px 18px rgba(6,85,255,0.12);
-}
-
-/* Botão Buscar: cor e hover */
-button{
-  appearance:none;
-  -webkit-appearance:none;
-  border: none;
-  padding:10px 14px;
-  border-radius:10px;
-  background: linear-gradient(180deg, var(--accent) 0%, #0066dd 100%);
-  color:#fff;
-  cursor:pointer;
-  font-weight:600;
-  box-shadow: 0 6px 18px rgba(3,18,59,0.12);
-  transition: transform .08s ease, box-shadow .12s ease, opacity .12s ease;
-}
-
-button:hover{
-  background: linear-gradient(180deg, var(--accent-hover) 0%, #004fb3 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 26px rgba(3,18,59,0.18);
-}
-
-button:active{
-  transform: translateY(0);
-  box-shadow: 0 6px 14px rgba(3,18,59,0.12);
-  opacity:0.98;
 }
 
 /* Destacar input com borda vermelha quando inválido */
@@ -106,97 +81,7 @@ input.invalid {
   box-shadow: 0 0 5px red;
 }
 
-/* Resultado */
-.result{
-  font-size:1rem;
-  margin-top:8px;
-  color:var(--text);
-}
-
-/* Pequenos ajustes responsivos */
-@media (max-width:420px){
-  .container{ padding:18px; }
-  input[type="text"]{ flex-basis:100%; }
-  form{ gap:8px; }
-  button{ width:100%; padding:12px; }
-}
-```// filepath: /Users/cintiamdourado/Desktop/Projetos Front/weather_project/style.css
-/* ...existing code... */
-
-/* Fundo azul degradê de cima para baixo e centralização do conteúdo */
-:root{
-  --card-bg: rgba(255,255,255,0.95);
-  --accent: #0077ff;
-  --accent-hover: #005fcc;
-  --text: #102240;
-  --muted: #6b7a90;
-}
-
-*{ margin:0; padding:0; box-sizing:border-box; font-family:"Poppins",sans-serif; }
-
-html,body{ height:100%; }
-
-body{
-  min-height:100vh;
-  display:flex;
-  align-items:center;        /* centraliza verticalmente */
-  justify-content:center;    /* centraliza horizontalmente */
-  background: linear-gradient(to bottom, #0b3d91 0%, #3da2ff 60%, #a9d8ff 100%);
-  color:var(--text);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  padding:20px;
-}
-
-/* Card principal */
-.container{
-  width:100%;
-  max-width:440px;
-  background:var(--card-bg);
-  border-radius:16px;
-  padding:28px;
-  box-shadow: 0 10px 30px rgba(3,18,59,0.18);
-  text-align:center;
-  backdrop-filter: blur(6px);
-}
-
-/* Título */
-h1{
-  font-size:1.05rem;
-  margin-bottom:18px;
-  line-height:1.25;
-}
-
-/* Form */
-form{
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  align-items:center;
-  margin-bottom:16px;
-  flex-wrap:wrap;
-}
-
-/* Input */
-input[type="text"]{
-  flex:1 1 60%;
-  min-width:160px;
-  padding:10px 12px;
-  border-radius:10px;
-  border:1px solid rgba(16,34,64,0.08);
-  background:#fff;
-  color:var(--text);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
-  transition: box-shadow .2s, border-color .2s;
-  outline:none;
-}
-
-input[type="text"]:focus{
-  border-color: rgba(0,119,255,0.9);
-  box-shadow: 0 4px 18px rgba(6,85,255,0.12);
-}
-
-/* Botão Buscar: cor e hover */
+/* Botão Buscar */
 button{
   appearance:none;
   -webkit-appearance:none;
@@ -228,6 +113,12 @@ button:active{
   font-size:1rem;
   margin-top:8px;
   color:var(--text);
+}
+
+/* Weather Icons */
+.wi{
+  margin-right: 5px;
+  font-size: 1.2rem;
 }
 
 /* Pequenos ajustes responsivos */
