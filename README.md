@@ -88,7 +88,6 @@ Aplicação completa que permite consultar o clima atual e a previsão estendida
 - Jest 29.x
 - Mocks de Fetch API
 - 25 testes automatizados
-![Prévia do Result Tests](assets/img/weather_tests_API_.png)
 
 ### **Fontes**
 
@@ -215,7 +214,7 @@ npm test -- --coverage
 | Edge Cases       | 4      | Condições extremas (polo, deserto, furacão) |
 
 **Todos os testes são 100% isolados com mocks — sem dependência de DOM.**
-
+![Prévia do Result Tests](assets/img/weather_tests_API_.png)
 ------
 
 ## 📘 Documentação Interna (JSDoc)
