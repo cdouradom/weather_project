@@ -1,4 +1,4 @@
-// api.js
+// script.js
 
 // Seleção de elementos já existentes
 const cityInput = document.getElementById("cityInput");
@@ -141,3 +141,7 @@ Depois, chama getWeather(latitude, longitude) para pegar o clima atual.
 Exibe os resultados formatados na página.
 Se ocorrer algum erro (ex.: cidade não encontrada), mostra uma mensagem amigável para o usuário.
 */
+
+if (typeof module !== "undefined") {
+  module.exports = { getCoordinates, getWeather };
+}
