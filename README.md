@@ -55,9 +55,17 @@ Aplicação completa que permite consultar o clima atual e a previsão estendida
 
 ## 🖼️ Prévia da Interface
 
-![Prévia da Aplicação](https://claude.ai/chat/assets/img/preview.png)
+*Interface mostrando clima atual, efeitos visuais e previsão de 5 dias*
 
-> *Interface mostrando clima atual, efeitos visuais e previsão de 5 dias*
+![Prévia da Aplicação](assets/img/PreviaInterface(neve).png)
+
+![Prévia da Aplicação](assets/img/PreviaInterface(chuva).png)
+
+![Prévia da Aplicação](assets/img/PreviaInterface(nublado).png)
+
+![Prévia da Aplicação](assets/img/PreviaInterface(sol).png)
+
+> 
 
 ------
 
@@ -80,6 +88,7 @@ Aplicação completa que permite consultar o clima atual e a previsão estendida
 - Jest 29.x
 - Mocks de Fetch API
 - 25 testes automatizados
+![Prévia do Result Tests](assets/img/weather_tests_API_.png)
 
 ### **Fontes**
 
@@ -467,6 +476,3 @@ Encontrou um bug? Tem alguma sugestão?
 - 🐛 [Abrir uma Issue](https://github.com/cdouradom/weather_project/issues) 💬
 
 ------
-
-<div align="center">
-
