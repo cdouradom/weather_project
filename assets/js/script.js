@@ -1,15 +1,28 @@
 // script.js - VERSÃO FINAL COM EFEITOS
 
 // Seleção de elementos
+/** @type {HTMLInputElement} Campo de entrada para digitar a cidade */
 const cityInput = document.getElementById("cityInput");
+
+/** @type {HTMLFormElement} Formulário principal de busca de clima */
 const weatherForm = document.getElementById("weatherForm");
+
+/** @type {HTMLElement} Div onde o resultado do clima atual é exibido */
 const resultDiv = document.querySelector(".result");
+
+/** @type {HTMLElement} Seção onde a previsão estendida (5 dias) é exibida */
 const forecastSection = document.getElementById("forecastSection");
 
 // -------------------------------------------------------------
 // Funções de utilidade
 // -------------------------------------------------------------
 
+/**
+ * Formata uma data completa no padrão brasileiro com dia da semana e horário.
+ *
+ * @param {Date} date - Objeto Date a ser formatado.
+ * @returns {string} Data formatada (ex: "segunda-feira, 20 de novembro de 2025 14:30").
+ */
 function formatFullDate(date) {
   return date.toLocaleDateString("pt-BR", {
     weekday: "long",
@@ -21,55 +34,104 @@ function formatFullDate(date) {
   });
 }
 
+/**
+ * Obtém a hora atual em Brasília (UTC-3) baseada no horário local do navegador.
+ *
+ * @returns {number} Hora em Brasília (0–23).
+ */
 function getBrasiliaHour() {
   const now = new Date();
   const utcHour = now.getUTCHours();
   return (utcHour - 3 + 24) % 24;
 }
 
+/**
+ * Define o background da página usando o horário de Brasília.
+ * Usado como fallback quando nenhuma cidade foi pesquisada.
+ */
 function setBackgroundByTime() {
   const hour = getBrasiliaHour();
   if (hour >= 6 && hour < 18) {
-    document.body.style.background = "linear-gradient(to bottom, #0b3d91 0%, #3da2ff 60%, #a9d8ff 100%)";
+    document.body.style.background =
+      "linear-gradient(to bottom, #0b3d91 0%, #3da2ff 60%, #a9d8ff 100%)";
   } else {
-    document.body.style.background = "linear-gradient(to bottom, #0b1a33 0%, #1a2e59 60%, #334b7f 100%)";
+    document.body.style.background =
+      "linear-gradient(to bottom, #0b1a33 0%, #1a2e59 60%, #334b7f 100%)";
   }
 }
 
 /**
- * Ajusta o fundo com base no horário local da cidade buscada
+ * Ajusta o fundo com base no horário **local da cidade buscada**,
+ * calculado a partir do timezone offset retornado da API (em segundos).
+ *
+ * @param {number} timezoneOffset - Deslocamento do fuso horário em segundos.
  */
 function setBackgroundByLocalTime(timezoneOffset) {
-  // timezoneOffset vem em segundos da API
   const now = new Date();
-  const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
-  const localTime = new Date(utcTime + (timezoneOffset * 1000));
+  const utcTime = now.getTime() + now.getTimezoneOffset() * 60000;
+  const localTime = new Date(utcTime + timezoneOffset * 1000);
   const localHour = localTime.getHours();
-  
+
   console.log(`🕐 Horário local da cidade: ${localHour}h`);
-  
+
   if (localHour >= 6 && localHour < 18) {
-    // Dia
-    document.body.style.background = "linear-gradient(to bottom, #0b3d91 0%, #3da2ff 60%, #a9d8ff 100%)";
+    document.body.style.background =
+      "linear-gradient(to bottom, #0b3d91 0%, #3da2ff 60%, #a9d8ff 100%)";
   } else {
-    // Noite
-    document.body.style.background = "linear-gradient(to bottom, #0b1a33 0%, #1a2e59 60%, #334b7f 100%)";
+    document.body.style.background =
+      "linear-gradient(to bottom, #0b1a33 0%, #1a2e59 60%, #334b7f 100%)";
   }
 }
 
+/**
+ * Obtém latitude e longitude da cidade informada utilizando a
+ * Open-Meteo **Geocoding API**.
+ *
+ * @async
+ * @param {string} city - Nome da cidade digitada pelo usuário.
+ * @returns {Promise<Object>} Objeto contendo coordenadas e metadados da cidade encontrada.
+ * @throws {Error} Quando a cidade não é encontrada ou ocorre erro na requisição.
+ *
+ * @example
+ * const coords = await getCoordinates("São Paulo");
+ * console.log(coords.latitude, coords.longitude);
+ */
 async function getCoordinates(city) {
   try {
-    const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`;
+    const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(
+      city
+    )}&count=1`;
     const response = await fetch(geoUrl);
-    if (!response.ok) throw new Error("Erro na requisição de geocodificação.");
+    if (!response.ok)
+      throw new Error("Erro na requisição de geocodificação.");
     const data = await response.json();
-    if (!data.results || data.results.length === 0) throw new Error("Cidade não encontrada.");
+    if (!data.results || data.results.length === 0)
+      throw new Error("Cidade não encontrada.");
     return data.results[0];
   } catch (error) {
     throw error;
   }
 }
 
+/**
+ * Obtém dados climáticos atuais e variáveis adicionais
+ * (umidade, precipitação e vento horário) usando Open-Meteo API.
+ *
+ * A função busca o horário exato da leitura atual para casar com
+ * os dados horários retornados e garantir precisão.
+ *
+ * @async
+ * @param {number} latitude - Latitude da cidade.
+ * @param {number} longitude - Longitude da cidade.
+ * @returns {Promise<Object>} Dados climáticos completos.
+ *
+ * @throws {Error} Quando a API não retorna dados válidos,
+ *                 ou ocorre erro na requisição.
+ *
+ * @example
+ * const weather = await getWeather(-23.55, -46.63);
+ * console.log(weather.temperature);
+ */
 async function getWeather(latitude, longitude) {
   try {
     const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=relativehumidity_2m,precipitation,windspeed_10m&timezone=auto`;
@@ -77,17 +139,20 @@ async function getWeather(latitude, longitude) {
     if (!response.ok) throw new Error("Erro na requisição de clima.");
     const data = await response.json();
 
-    if (!data.current_weather) throw new Error("Dados de clima atual indisponíveis.");
+    if (!data.current_weather)
+      throw new Error("Dados de clima atual indisponíveis.");
 
     let humidity = null;
     let precipitation = null;
     let windspeed_hourly = null;
 
+    // Encontrar índice mais próximo do horário atual
     if (data.hourly && Array.isArray(data.hourly.time)) {
       const times = data.hourly.time;
       const currentTime = data.current_weather.time;
       let idx = times.indexOf(currentTime);
 
+      // Se não encontrar exatamente o horário, pega o mais próximo
       if (idx === -1) {
         const currentMs = new Date(currentTime).getTime();
         let best = 0;
@@ -102,17 +167,13 @@ async function getWeather(latitude, longitude) {
         idx = best;
       }
 
-      if (typeof data.hourly.relativehumidity_2m !== "undefined")
-        humidity = data.hourly.relativehumidity_2m[idx] ?? null;
-      if (typeof data.hourly.precipitation !== "undefined")
-        precipitation = data.hourly.precipitation[idx] ?? null;
-      if (typeof data.hourly.windspeed_10m !== "undefined")
-        windspeed_hourly = data.hourly.windspeed_10m[idx] ?? null;
+      humidity = data.hourly.relativehumidity_2m?.[idx] ?? null;
+      precipitation = data.hourly.precipitation?.[idx] ?? null;
+      windspeed_hourly = data.hourly.windspeed_10m?.[idx] ?? null;
     }
 
-    const windspeed_from_current = typeof data.current_weather.windspeed !== "undefined"
-      ? data.current_weather.windspeed
-      : null;
+    const windspeed_from_current =
+      data.current_weather.windspeed ?? null;
 
     return {
       ...data.current_weather,
@@ -121,13 +182,24 @@ async function getWeather(latitude, longitude) {
       windspeed_hourly,
       windspeed_from_current,
       timezone_offset: data.utc_offset_seconds || 0,
-      raw: data
+      raw: data,
     };
   } catch (error) {
     throw error;
   }
 }
 
+/**
+ * Retorna descrição, ícone correspondente e efeito visual recomendado
+ * baseado no código de clima da Open-Meteo.
+ *
+ * @param {number} code - Código de condição climática.
+ * @returns {{desc: string, icon: string, effect: string}} Objeto contendo descrição, ícone e efeito.
+ *
+ * @example
+ * const info = getWeatherDescriptionAndIcon(3);
+ * console.log(info.desc); // "Nublado"
+ */
 function getWeatherDescriptionAndIcon(code) {
   const weatherMap = {
     0: { desc: "Céu limpo", icon: "wi-day-sunny", effect: "sun" },

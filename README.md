@@ -91,26 +91,34 @@ Aplicação completa que permite consultar o clima atual e a previsão estendida
 
 ```
 weather_project/
-│
-├── assets/
-│   ├── js/
-│   │   └── script.js          # Lógica principal + efeitos visuais
-│   ├── css/
-│   │   └── style.css          # Estilos e animações
-│   └── img/
-│       ├── app-de-clima.png   # Favicon
-│       └── preview.png        # Screenshot do projeto
-│
-├── tests/
-│   └── script.test.js         # 25 testes de API
-│
-├── node_modules/              # Dependências npm
-├── .gitignore                 # Arquivos ignorados pelo Git
-├── index.html                 # Página principal
-├── jest.config.js             # Configuração do Jest
-├── package.json               # Dependências e scripts
-├── package-lock.json          # Lock de dependências
-└── README.md                  # Este arquivo
+  │
+  ├── assets/
+  │   ├── js/
+  │   │   └── script.js          # Lógica principal + efeitos visuais
+  │   ├── css/
+  │   │   └── style.css          # Estilos e animações
+  │   └── img/
+  │       ├── app-de-clima.png   # Favicon
+  │       └── preview.png        # Screenshot do projeto
+  │
+  ├── tests/
+  │   └── script.test.js         # 25 testes de API
+  │
+  ├── node_modules/
+  ├── .gitignore
+  ├── package.json
+  ├── package-lock.json
+  ├── index.html
+  └── README.md
+  +├── LICENSE                     # Licença MIT
+  +├── NOTICE.md                   # Aviso legal
+  +├── PRIVACY_POLICY.md           # Política de Privacidade
+  +├── SECURITY.md                 # Diretrizes de segurança
+  +├── SECURITY_AUDIT.md           # Auditoria de segurança
+  +├── LICENSE_AUDIT.md            # Auditoria de licenças
+  +├── SUMMARY.md                  # Resumo executivo do projeto
+  +├── IMPLEMENTATION_GUIDE.md     # Guia completo de implementação
+  +├── .env.example                # Exemplo de variáveis ambiente
 ```
 
 ------
@@ -129,13 +137,21 @@ git clone https://github.com/seu-usuario/weather-project.git
 cd weather-project
 ```
 
-### 📦 **2. Instale as dependências**
+### 🧩 **2. Confi**gure seu arquivo .env
+
+```bash
+Copie o arquivo de exemplo:
+
+cp .env.example .env
+```
+
+### 📦 3. Instale as dependências**
 
 ```bash
 npm install
 ```
 
-### ▶️ **3. Execute o projeto**
+### ▶️ 4. Execute o projeto**
 
 Você pode abrir o arquivo `index.html` diretamente no navegador ou usar um servidor local:
 
@@ -425,12 +441,6 @@ Contribuições são sempre bem-vindas! Siga os passos:
 
 ------
 
-## 📄 Licença
-
-Este projeto está sob a licença **MIT**. Veja o arquivo [LICENSE](https://claude.ai/chat/LICENSE) para mais detalhes.
-
-------
-
 ## 🙏 Agradecimentos
 
 - [Open-Meteo](https://open-meteo.com/) pela API gratuita e confiável
@@ -460,8 +470,3 @@ Encontrou um bug? Tem alguma sugestão?
 
 <div align="center">
 
-**⭐ Se este projeto foi útil, considere dar uma estrela!**
-
-[![GitHub stars](https://img.shields.io/github/stars/seu-usuario/weather-project.svg?style=social&label=Star)](https://github.com/seu-usuario/weather-project) [![GitHub forks](https://img.shields.io/github/forks/seu-usuario/weather-project.svg?style=social&label=Fork)](https://github.com/seu-usuario/weather-project/fork)
-
-</div>
