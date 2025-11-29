@@ -5,6 +5,19 @@ const cityInput = document.getElementById("cityInput");
 const weatherForm = document.getElementById("weatherForm");
 const resultDiv = document.getElementById("result");
 
+  /**
+   * Formata uma data completa no padrão brasileiro, incluindo dia da semana,
+   * data e horário (hora e minutos).
+   *
+   * @function formatFullDate
+   * @param {Date} date - Objeto Date que será formatado.
+   * @returns {string} Data formatada no padrão "segunda-feira, 13 de outubro de 2025 14:35".
+   *
+   * @example
+   * const agora = new Date();
+   * const dataFormatada = formatFullDate(agora);
+   * console.log(dataFormatada);
+   */
 // Função para formatar data completa (ex: segunda-feira, 13 de outubro de 2025)
 function formatFullDate(date) {
   return date.toLocaleDateString("pt-BR", {
@@ -17,6 +30,16 @@ function formatFullDate(date) {
   });
 }
 
+  /**
+   * Obtém a hora atual considerando o fuso de Brasília (UTC-3).
+   *
+   * @function getBrasiliaHour
+   * @returns {number} Hora de Brasília (0–23).
+   *
+   * @example
+   * const hora = getBrasiliaHour();
+   * console.log(`Agora são ${hora}h em Brasília.`);
+   */
 // Função para obter hora de Brasília
 function getBrasiliaHour() {
   const now = new Date();
@@ -25,6 +48,16 @@ function getBrasiliaHour() {
   return brasiliaHour;
 }
 
+  /**
+   * Ajusta automaticamente o fundo da página conforme a hora de Brasília.
+   * Entre 06h e 18h exibe fundo "dia"; fora desse intervalo, fundo "noite".
+   *
+   * @function setBackgroundByTime
+   * @returns {void}
+   *
+   * @example
+   * setBackgroundByTime();
+   */
 // Função para trocar fundo conforme hora de Brasília
 function setBackgroundByTime() {
   const hour = getBrasiliaHour();
@@ -37,6 +70,23 @@ function setBackgroundByTime() {
   }
 }
 
+  /**
+   * Busca coordenadas geográficas (latitude e longitude) de uma cidade
+   * utilizando a API pública Open-Meteo Geocoding.
+   *
+   * @async
+   * @function getCoordinates
+   * @param {string} city - Nome da cidade para consulta.
+   * @returns {Promise<Object>} Objeto contendo latitude, longitude, nome e país.
+   *
+   * @throws {Error} "Erro na requisição de geocodificação."  
+   * @throws {Error} "Cidade não encontrada."
+   *
+   * @example
+   * getCoordinates("São Paulo")
+   *   .then(data => console.log(data.latitude, data.longitude))
+   *   .catch(err => console.error(err));
+   */
 // Função para buscar coordenadas da cidade
 async function getCoordinates(city) {
   try {
@@ -51,6 +101,23 @@ async function getCoordinates(city) {
   }
 }
 
+  /**
+   * Busca informações meteorológicas atuais de uma coordenada geográfica
+   * utilizando a API Open-Meteo.
+   *
+   * @async
+   * @function getWeather
+   * @param {number} latitude - Latitude da cidade.
+   * @param {number} longitude - Longitude da cidade.
+   * @returns {Promise<Object>} Objeto contendo dados de clima atual (temperatura, código do clima, etc.).
+   *
+   * @throws {Error} "Erro na requisição de clima."
+   *
+   * @example
+   * getWeather(-23.55, -46.63)
+   *   .then(weather => console.log(weather.temperature))
+   *   .catch(err => console.error(err));
+   */
 // Função para buscar clima
 async function getWeather(latitude, longitude) {
   try {
@@ -64,6 +131,18 @@ async function getWeather(latitude, longitude) {
   }
 }
 
+  /**
+   * Retorna a descrição textual do clima e o nome da classe de ícone correspondente
+   * com base no código meteorológico da API Open-Meteo.
+   *
+   * @function getWeatherDescriptionAndIcon
+   * @param {number} code - Código numérico do clima fornecido pela API.
+   * @returns {{desc: string, icon: string}} Objeto contendo descrição e classe de ícone.
+   *
+   * @example
+   * const { desc, icon } = getWeatherDescriptionAndIcon(63);
+   * console.log(desc, icon); // "Chuva moderada", "wi-rain"
+   */
 // Função para obter descrição do clima e ícones
 function getWeatherDescriptionAndIcon(code) {
   // Mapear códigos de clima do Open-Meteo para descrição e ícone
@@ -93,6 +172,17 @@ function getWeatherDescriptionAndIcon(code) {
   return weatherMap[code] || { desc: "Desconhecido", icon: "wi-na" };
 }
 
+  /**
+   * Listener responsável por interceptar o envio do formulário,
+   * realizar validação da entrada, consultar APIs externas e atualizar
+   * a interface com os dados meteorológicos formatados.
+   *
+   * @event submit
+   *
+   * @example
+   * -- O listener já está associado automaticamente:
+   * -- weatherForm.addEventListener("submit", ...);
+   */
 // Listener do formulário
 weatherForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -129,8 +219,22 @@ weatherForm.addEventListener("submit", async (event) => {
   }
 });
 
+  /**
+   * Atualiza automaticamente o fundo da página quando o DOM estiver carregado.
+   *
+   * @event DOMContentLoaded
+   */
 // Atualiza fundo automaticamente ao carregar a página
 window.addEventListener("DOMContentLoaded", setBackgroundByTime);
+
+  /**
+   * Exporta funções para permitir testes unitários (quando em ambiente Node).
+   *
+   * @module script
+   */
+if (typeof module !== "undefined") {
+  module.exports = { getCoordinates, getWeather };
+}
 
 /* 
 Resumo do funcionamento:
@@ -141,7 +245,3 @@ Depois, chama getWeather(latitude, longitude) para pegar o clima atual.
 Exibe os resultados formatados na página.
 Se ocorrer algum erro (ex.: cidade não encontrada), mostra uma mensagem amigável para o usuário.
 */
-
-if (typeof module !== "undefined") {
-  module.exports = { getCoordinates, getWeather };
-}
