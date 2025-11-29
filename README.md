@@ -1,39 +1,89 @@
-# 🌦️ Weather Project — Consulta de Clima em Tempo Real
+# 🌦️ Weather Project — Previsão do Tempo em Tempo Real
 
-**Aplicação em JavaScript puro utilizando a API Open-Meteo**
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Tests](https://img.shields.io/badge/tests-25%20passing-brightgreen.svg)](https://claude.ai/chat/tests/) [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow.svg)](https://www.ecma-international.org/)
 
-Este projeto permite consultar o clima atual de qualquer cidade do mundo, exibindo temperatura, descrição do clima, ícone e data/hora atual formatada.
- Além disso, o fundo da página muda dinamicamente conforme o horário de Brasília, criando uma experiência visual mais imersiva.
+**Aplicação web moderna de previsão do tempo utilizando JavaScript puro e API Open-Meteo**
+
+Aplicação completa que permite consultar o clima atual e a previsão estendida de qualquer cidade do mundo, com efeitos visuais realistas que se adaptam às condições climáticas e horário local.
 
 ------
 
-## ✨ Funcionalidades
+## ✨ Funcionalidades Principais
 
-- 🔍 **Busca por cidade** usando Geocoding API (Open-Meteo)
-- 🌡️ **Clima atual em tempo real**
-- 🕒 **Hora e data formatadas automaticamente**
-- 🌓 **Fundo dinâmico** baseado no horário (dia/noite – Brasília)
-- ⚠️ **Tratamento completo de erros** (cidade inválida, rede, APIs, etc.)
-- 🧪 **Testes unitários com Jest**, incluindo mocks de API
-- 📄 **Docstrings JSDoc** documentando todas as funções
-- 💡 **Código modular e preparado para automação de docs**
+### 🌍 **Busca Inteligente**
+
+- Busca por cidade usando Geocoding API (Open-Meteo)
+- Suporte a caracteres especiais e acentuação
+- Validação de entrada em tempo real
+
+### 🌡️ **Dados Climáticos Completos**
+
+- Temperatura atual
+- Descrição detalhada do clima com ícones Weather Icons
+- Umidade relativa do ar
+- Velocidade do vento (km/h e m/s)
+- Precipitação em mm
+- Timestamp de atualização
+
+### 📅 **Previsão Estendida**
+
+- Previsão para os próximos 5 dias
+- Temperaturas máximas e mínimas
+- Índice de precipitação
+- Cartões visuais informativos
+
+### 🎨 **Experiência Visual Imersiva**
+
+- **Fundo dinâmico** que muda conforme o horário LOCAL da cidade buscada
+- **Efeitos climáticos realistas**:
+  - ☀️ Sol animado com raios rotativos
+  - ☁️ Nuvens flutuantes multicamadas
+  - 🌧️ Chuva com gotas realistas (leve, moderada e intensa)
+  - ❄️ Neve com flocos suaves
+  - ⛈️ Tempestade com relâmpagos dinâmicos
+  - 🌫️ Névoa com efeito de profundidade
+  - 🧊 Granizo com partículas brilhantes
+
+### 🧪 **Qualidade de Código**
+
+- 25 testes unitários com Jest
+- Cobertura completa de API
+- Tratamento robusto de erros
+- Documentação JSDoc completa
 
 ------
 
 ## 🖼️ Prévia da Interface
 
-> ![image-20251128234220103](/Users/cintiamdourado/Library/Application Support/typora-user-images/image-20251128234220103.png)
+![Prévia da Aplicação](https://claude.ai/chat/assets/img/preview.png)
+
+> *Interface mostrando clima atual, efeitos visuais e previsão de 5 dias*
 
 ------
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **HTML5**
-- **CSS3**
-- **JavaScript ES6+**
-- **Fetch API**
-- **Open-Meteo API**
-- **Jest (para testes)**
+### **Frontend**
+
+- HTML5 semântico
+- CSS3 com animações avançadas
+- JavaScript ES6+ (Vanilla)
+- Weather Icons CDN
+
+### **APIs**
+
+- [Open-Meteo API](https://open-meteo.com/) - Dados meteorológicos
+- [Open-Meteo Geocoding](https://open-meteo.com/en/docs/geocoding-api) - Conversão cidade → coordenadas
+
+### **Testes & Qualidade**
+
+- Jest 29.x
+- Mocks de Fetch API
+- 25 testes automatizados
+
+### **Fontes**
+
+- Google Fonts (Poppins)
 
 ------
 
@@ -43,120 +93,375 @@ Este projeto permite consultar o clima atual de qualquer cidade do mundo, exibin
 weather_project/
 │
 ├── assets/
-│   └── js/
-│       └── script.js
-│   └── css/
-│       └── style.css
-├── node.module
+│   ├── js/
+│   │   └── script.js          # Lógica principal + efeitos visuais
+│   ├── css/
+│   │   └── style.css          # Estilos e animações
+│   └── img/
+│       ├── app-de-clima.png   # Favicon
+│       └── preview.png        # Screenshot do projeto
+│
 ├── tests/
-│   └──jest.config.js
-├── .gitignore
-├── index.html
-├── package.lock.json
-├── package.json
-└── README.md
+│   └── script.test.js         # 25 testes de API
+│
+├── node_modules/              # Dependências npm
+├── .gitignore                 # Arquivos ignorados pelo Git
+├── index.html                 # Página principal
+├── jest.config.js             # Configuração do Jest
+├── package.json               # Dependências e scripts
+├── package-lock.json          # Lock de dependências
+└── README.md                  # Este arquivo
 ```
 
 ------
 
 ## 🚀 Como Executar o Projeto
 
-### 🔧 1. Instale as dependências
+### 📋 **Pré-requisitos**
 
+- Node.js 14+ instalado
+- npm ou yarn
+
+### 🔧 **1. Clone o repositório**
+
+```bash
+git clone https://github.com/seu-usuario/weather-project.git
+cd weather-project
 ```
+
+### 📦 **2. Instale as dependências**
+
+```bash
 npm install
 ```
 
-### ▶️ 2. Execute em um servidor local (opcional)
+### ▶️ **3. Execute o projeto**
 
-Você pode abrir o `index.html` diretamente no navegador, ou usar uma extensão como **Live Server**.
+Você pode abrir o arquivo `index.html` diretamente no navegador ou usar um servidor local:
+
+**Opção A: Servidor local com Live Server (VS Code)**
+
+- Instale a extensão "Live Server"
+- Clique com botão direito em `index.html` → "Open with Live Server"
+
+**Opção B: Python (se tiver instalado)**
+
+```bash
+python -m http.server 8000
+# Acesse: http://localhost:8000
+```
+
+**Opção C: Node.js (http-server)**
+
+```bash
+npx http-server -p 8000
+```
 
 ------
 
-## 🧪 Como rodar os testes
+## 🧪 Como Rodar os Testes
 
-```
+### **Executar todos os testes**
+
+```bash
 npm test
 ```
 
-Os testes incluem:
+### **Executar em modo watch (desenvolvimento)**
 
-- Cidade válida
-- Cidade inexistente
-- Entrada vazia
-- Erro da API
-- Erro 429
-- Erro de rede
-- JSON inesperado
+```bash
+npm test -- --watch
+```
 
-Todos isolados com mocks — **sem tocar no DOM**.
+### **Ver cobertura de código**
+
+```bash
+npm test -- --coverage
+```
+
+### **📊 Cobertura dos Testes (25 testes)**
+
+| Categoria        | Testes | Descrição                                   |
+| ---------------- | ------ | ------------------------------------------- |
+| `getCoordinates` | 8      | Geocodificação, validações, edge cases      |
+| `getWeather`     | 7      | Dados climáticos, fallbacks, erros          |
+| `getForecast`    | 4      | Previsão estendida, timeouts                |
+| Integração       | 2      | Fluxo completo de busca                     |
+| Edge Cases       | 4      | Condições extremas (polo, deserto, furacão) |
+
+**Todos os testes são 100% isolados com mocks — sem dependência de DOM.**
 
 ------
 
 ## 📘 Documentação Interna (JSDoc)
 
-O arquivo `script.js` possui **docstrings completas**, descrevendo:
+O arquivo `script.js` possui **docstrings JSDoc completas** em todas as funções, descrevendo:
 
-- Parâmetros
-- Tipos
-- Valor de retorno
-- Exemplos
-- Erros lançados
+- Parâmetros e tipos
+- Valores de retorno
+- Exemplos de uso
+- Exceções lançadas
 
-Sua base está pronta para gerar documentação HTML com:
+### **Gerar documentação HTML**
 
-```
+```bash
 npx jsdoc -c jsdoc.json
 ```
 
-------
-
-## 🧠 Arquitetura & Lógica
-
-1. Usuário digita a cidade
-2. O formulário dispara o listener
-3. `getCoordinates()` busca latitude/longitude
-4. `getWeather()` usa essas coordenadas na API
-5. O fundo muda pelo horário de Brasília
-6. O resultado é exibido com ícones e formatação amigável
-7. Em caso de erro, uma mensagem legível aparece na tela
+A documentação será gerada na pasta `docs/`.
 
 ------
 
-## ❗ Tratamento de Erros
+## 🧠 Arquitetura & Fluxo de Dados
 
-O projeto trata cuidadosamente:
+```
+┌─────────────────┐
+│  Usuário digita │
+│   cidade        │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ getCoordinates()│ ← Geocoding API
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  getWeather()   │ ← Weather API
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ getForecast()   │ ← Forecast API
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────────────────┐
+│ setBackgroundByLocalTime()  │ ← Ajusta fundo (dia/noite)
+└────────┬────────────────────┘
+         │
+         ▼
+┌─────────────────────────────┐
+│ createWeatherEffect()       │ ← Efeitos visuais realistas
+└────────┬────────────────────┘
+         │
+         ▼
+┌─────────────────────────────┐
+│ Renderização na UI          │
+└─────────────────────────────┘
+```
 
-- ❌ Falhas de rede
-- ❌ Request 4xx/5xx
+------
+
+## ❗ Tratamento de Erros Robusto
+
+O projeto implementa tratamento completo de erros em múltiplas camadas:
+
+### **Validação de Entrada**
+
+- ❌ Campo vazio
+- ❌ Caracteres inválidos
+
+### **Erros de Rede**
+
+- ❌ Timeout de requisição
+- ❌ Sem conexão com internet
+- ❌ DNS failure
+
+### **Erros de API**
+
+- ❌ Status 4xx (cliente)
+- ❌ Status 5xx (servidor)
+- ❌ Rate limiting (429)
 - ❌ Cidade não encontrada
-- ❌ JSON de resposta inesperado
-- ❌ Campo de cidade vazio
+
+### **Erros de Dados**
+
+- ❌ JSON malformado
+- ❌ Campos obrigatórios ausentes
+- ❌ Tipos de dados incorretos
+
+### **Feedback ao Usuário**
+
+- Mensagens claras e descritivas
+- Indicação visual de erro
+- Sugestões de correção
+
+------
+
+## 🎨 Efeitos Visuais Implementados
+
+### **☀️ Sol Realista**
+
+- Gradiente radial com brilho
+- 6 raios rotativos
+- Animação de pulsação suave
+- Box-shadow para efeito de luz
+
+### **☁️ Nuvens Multicamadas**
+
+- 8 nuvens com tamanhos variados
+- Pseudo-elementos para volume 3D
+- Velocidades diferentes de movimento
+- Opacidade e transparência realistas
+
+### **🌧️ Chuva em 3 Intensidades**
+
+- **Leve**: 200 gotas finas
+- **Moderada**: 300 gotas com movimento lateral
+- **Intensa**: 350 gotas rápidas
+
+### **❄️ Neve com Física**
+
+- Flocos com tamanho variável (4-10px)
+- Movimento de rotação
+- Deslocamento lateral suave
+- Gradiente radial para brilho
+
+### **⛈️ Tempestade com Relâmpagos**
+
+- Chuva intensa (300 partículas)
+- Relâmpagos aleatórios (múltiplos flashes)
+- Efeito de iluminação na tela
+
+### **🧊 Granizo**
+
+- Partículas maiores (5-13px)
+- Queda rápida e vertical
+- Sombra interna para volume
+
+### **🌫️ Névoa Atmosférica**
+
+- Gradiente de profundidade
+- Backdrop filter blur
+- Animação de pulsação
 
 ------
 
 ## 📚 Aprendizados do Projeto
 
-- Manipulação de API assíncrona com Fetch
-- Estruturação de funções puras para testabilidade
-- Separação entre lógica e UI
-- Testes unitários avançados com mocking
-- Uso de **clock system** (hora de Brasília)
-- Gerenciamento visual por hora do dia
+### **JavaScript Avançado**
+
+- Programação assíncrona com `async/await`
+- Tratamento de múltiplas APIs em paralelo
+- Manipulação avançada do DOM
+- Injeção dinâmica de CSS
+
+### **Animações CSS**
+
+- Keyframes complexos
+- Transformações 3D
+- Uso de `backdrop-filter`
+- Otimização de performance
+
+### **Testes Automatizados**
+
+- Mocking de APIs externas
+- Testes de integração
+- Edge cases e limites
+- Cobertura de código
+
+### **Boas Práticas**
+
+- Código modular e reutilizável
+- Documentação completa
+- Separação de responsabilidades
+- Versionamento com Git
+
+### **Design Responsivo**
+
+- Mobile-first approach
+- Flexbox e Grid Layout
+- Media queries
+- Acessibilidade
 
 ------
 
-## 💡 Próximos Passos (Etapa 5 do Projeto)
+## 🔮 Próximos Passos (Roadmap)
 
-- Criar documentação JSDoc em HTML
-- Melhorar layout e responsividade
-- Adicionar previsão de 7 dias
-- Implementar modo claro/escuro manual
-- Converter para componente Web / framework futuramente
+### **v2.0 - Em Planejamento**
+
+- [ ] Modo claro/escuro manual
+- [ ] Gráficos de temperatura (Chart.js)
+- [ ] Histórico de cidades buscadas (LocalStorage)
+- [ ] Compartilhamento em redes sociais
+- [ ] PWA (Progressive Web App)
+- [ ] Notificações de alertas meteorológicos
+
+### **v2.1 - Funcionalidades Extras**
+
+- [ ] Previsão de 14 dias
+- [ ] Radar de chuva interativo
+- [ ] Qualidade do ar (AQI)
+- [ ] Índice UV
+- [ ] Nascer/pôr do sol
+
+### **v3.0 - Migração**
+
+- [ ] Converter para React/Vue
+- [ ] API própria (backend Node.js)
+- [ ] Banco de dados de favoritos
+- [ ] Autenticação de usuários
+- [ ] Dashboard personalizado
+
+------
+
+## 🤝 Como Contribuir
+
+Contribuições são sempre bem-vindas! Siga os passos:
+
+1. **Fork** o projeto
+2. Crie uma **branch** para sua feature (`git checkout -b feature/MinhaFeature`)
+3. **Commit** suas mudanças (`git commit -m 'Adiciona MinhaFeature'`)
+4. **Push** para a branch (`git push origin feature/MinhaFeature`)
+5. Abra um **Pull Request**
+
+### **Diretrizes**
+
+- Mantenha o código limpo e documentado
+- Adicione testes para novas funcionalidades
+- Siga o padrão de código existente
+- Atualize o README se necessário
+
+------
+
+## 📄 Licença
+
+Este projeto está sob a licença **MIT**. Veja o arquivo [LICENSE](https://claude.ai/chat/LICENSE) para mais detalhes.
+
+------
+
+## 🙏 Agradecimentos
+
+- [Open-Meteo](https://open-meteo.com/) pela API gratuita e confiável
+- [Weather Icons](https://erikflowers.github.io/weather-icons/) pelos ícones lindos
+- [Google Fonts](https://fonts.google.com/) pela fonte Poppins
+- Comunidade open-source por bibliotecas e ferramentas
 
 ------
 
 ## 👩‍💻 Autoria
 
-Projeto desenvolvido por **Cíntia Dourado**✨
- Auxílio técnico e documentação por **Ceci (IA) ** 
+**Desenvolvido com ☕ e 💙 por [Cíntia Dourado](https://github.com/cdouradom)**
+
+- 🌐 [Portfolio](https://cdouradom.github.io/PORTFOLIO/)
+- 💼 [LinkedIn](www.linkedin.com/in/cintia-douradom)
+- 📧 Email: cdouradom@gmail.com
+
+------
+
+## 📞 Suporte
+
+Encontrou um bug? Tem alguma sugestão?
+
+- 🐛 [Abrir uma Issue](https://github.com/cdouradom/weather_project/issues) 💬
+
+------
+
+<div align="center">
+
+**⭐ Se este projeto foi útil, considere dar uma estrela!**
+
+[![GitHub stars](https://img.shields.io/github/stars/seu-usuario/weather-project.svg?style=social&label=Star)](https://github.com/seu-usuario/weather-project) [![GitHub forks](https://img.shields.io/github/forks/seu-usuario/weather-project.svg?style=social&label=Fork)](https://github.com/seu-usuario/weather-project/fork)
+
+</div>

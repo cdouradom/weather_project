@@ -1,26 +1,47 @@
-# ===== NODE.JS =====
+# =============================================================================
+# GITIGNORE - WEATHER PROJECT
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Node.js
+# -----------------------------------------------------------------------------
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 package-lock.json
-yarn.lock
+.npm
 
-# ===== TESTES =====
+# -----------------------------------------------------------------------------
+# Variáveis de Ambiente (CRÍTICO - NÃO VERSIONAR)
+# -----------------------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+.env .example
+
+# -----------------------------------------------------------------------------
+# Testes
+# -----------------------------------------------------------------------------
 coverage/
 .nyc_output/
-*.test.js.snap
+*.lcov
+.jest-cache/
 
-# ===== EDITORES / IDEs =====
-# VS Code
+# -----------------------------------------------------------------------------
+# IDEs e Editores
+# -----------------------------------------------------------------------------
+# Visual Studio Code
 .vscode/
 *.code-workspace
-.history/
-*.vsix
 
-# IntelliJ IDEA
+# JetBrains (WebStorm, IntelliJ)
 .idea/
 *.iml
+*.ipr
+*.iws
 
 # Sublime Text
 *.sublime-project
@@ -29,7 +50,9 @@ coverage/
 # Atom
 .atom/
 
-# ===== SISTEMA OPERACIONAL =====
+# -----------------------------------------------------------------------------
+# Sistemas Operacionais
+# -----------------------------------------------------------------------------
 # macOS
 .DS_Store
 .AppleDouble
@@ -38,44 +61,89 @@ coverage/
 
 # Windows
 Thumbs.db
-Thumbs.db:encryptable
 ehthumbs.db
 Desktop.ini
+$RECYCLE.BIN/
 
 # Linux
 *~
-.directory
 
-# ===== TEMPORÁRIOS =====
-*.tmp
-*.temp
-*.log
-*.swp
-*.swo
-*~
-
-# ===== BUILDS / DIST =====
+# -----------------------------------------------------------------------------
+# Build e Distribuição
+# -----------------------------------------------------------------------------
 dist/
 build/
 *.min.js
 *.min.css
+*.map
 
-# ===== ENVIRONMENT =====
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# -----------------------------------------------------------------------------
+# Logs
+# -----------------------------------------------------------------------------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
 
-# ===== CACHE =====
+# -----------------------------------------------------------------------------
+# Temporários
+# -----------------------------------------------------------------------------
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# -----------------------------------------------------------------------------
+# Documentação Gerada
+# -----------------------------------------------------------------------------
+docs/generated/
+out/
+jsdoc/
+
+# -----------------------------------------------------------------------------
+# Segurança (CRÍTICO - NÃO VERSIONAR)
+# -----------------------------------------------------------------------------
+# Chaves privadas
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Certificados
+*.crt
+*.cer
+
+# Tokens e Secrets
+secrets.json
+credentials.json
+token.json
+
+# -----------------------------------------------------------------------------
+# Análises e Relatórios
+# -----------------------------------------------------------------------------
+licenses-report.json
+security-audit.json
+npm-audit.json
+
+# -----------------------------------------------------------------------------
+# Cache
+# -----------------------------------------------------------------------------
 .cache/
 .parcel-cache/
 .eslintcache
 
-# ===== OUTROS =====
-# Backup files
-*.bak
-*.backup
+# -----------------------------------------------------------------------------
+# Específico do Projeto
+# -----------------------------------------------------------------------------
+# Adicione aqui arquivos específicos do seu projeto que não devem ser versionados
 
-# Arquivos de configuração local
-config.local.js
+# -----------------------------------------------------------------------------
+# IMPORTANTE: 
+# - NUNCA commite arquivos .env com valores reais
+# - NUNCA commite chaves de API ou secrets
+# - NUNCA commite dados sensíveis de usuários
+# -----------------------------------------------------------------------------

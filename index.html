@@ -6,31 +6,74 @@
   <meta charset="UTF-8" />
   <!-- LAYOUT MOBILE -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEGURANÇA: Content Security Policy (recomendado para produção) -->
+  <!-- Descomente em produção e ajuste conforme necessário -->
+  <!--
+  <meta http-equiv="Content-Security-Policy" 
+        content="default-src 'self'; 
+                 script-src 'self' 'unsafe-inline'; 
+                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; 
+                 font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; 
+                 img-src 'self' data:; 
+                 connect-src 'self' https://api.open-meteo.com https://geocoding-api.open-meteo.com;">
+  -->
+
   <!-- Link para o CSS -->
   <link rel="stylesheet" href="./assets/css/style.css" />
+
   <!-- Favicon (PNG recomendado para compatibilidade com Safari) -->
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/app-de-clima.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/app-de-clima.png">
   <link rel="shortcut icon" href="./assets/img/app-de-clima.png">
+
   <!-- Servidores de Fontes do Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <!-- Fonte do Google - Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
   <!-- Weather Icons CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.min.css">
+
+  <!-- Meta Tags para SEO e Redes Sociais -->
+  <meta name="description"
+    content="Consulte a previsão do tempo em tempo real para qualquer cidade do mundo. Aplicação open-source com efeitos visuais realistas.">
+  <meta name="keywords" content="previsão do tempo, clima, weather, meteorologia, open-meteo">
+  <meta name="author" content="Cíntia Dourado">
+
   <!-- Título da Pagina -->
-  <title>Previsão do Tempo</title>
+  <title>Previsão do Tempo - Weather Project</title>
 </head>
 
 <body>
-  <div class="container">
+  <!-- AVISO DE PRIVACIDADE -->
+  <div class="privacy-notice" id="privacyNotice">
+    <div class="privacy-content">
+      <span class="privacy-icon">🔒</span>
+      <p>
+        <strong>Privacidade:</strong> Esta aplicação não coleta dados pessoais.
+        A cidade digitada é usada apenas para buscar o clima via
+        <a href="https://open-meteo.com/en/terms" target="_blank" rel="noopener">Open-Meteo API</a>
+        e não é armazenada.
+        <a href="PRIVACY_POLICY.md" target="_blank">Saiba mais</a>
+      </p>
+      <button class="privacy-close" onclick="document.getElementById('privacyNotice').style.display='none'"
+        aria-label="Fechar aviso">
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <div class="cont  ainer">
     <!-- Área Principal do Site -->
     <h1>☀️🌤️🌦️ Previsão do Tempo 🌧️⛈️🌩️</h1>
 
     <form id="weatherForm">
-      <input type="text" id="cityInput" placeholder="Digite o nome da cidade..." />
-      <button type="submit">Buscar</button>
+      <input type="text" id="cityInput" placeholder="Digite o nome da cidade..." maxlength="100" autocomplete="off"
+        aria-label="Nome da cidade" />
+      <button type="submit" aria-label="Buscar previsão do tempo">Buscar</button>
     </form>
 
     <div class="result empty">
@@ -45,7 +88,49 @@
     </div>
   </div>
 
+  <!-- RODAPÉ COM ATRIBUIÇÕES OBRIGATÓRIAS -->
+  <footer class="attribution-footer">
+    <div class="attribution-content">
+      <p>
+        📊 Dados meteorológicos fornecidos por
+        <a href="https://open-meteo.com" target="_blank" rel="noopener noreferrer"
+          title="Open-Meteo - Free Weather API">
+          Open-Meteo.com
+        </a>
+        (Licença
+        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer"
+          title="Creative Commons BY 4.0">
+          CC BY 4.0
+        </a>)
+      </p>
+      <p>
+        ☁️ Ícones por
+        <a href="https://erikflowers.github.io/weather-icons/" target="_blank" rel="noopener noreferrer"
+          title="Weather Icons by Erik Flowers">
+          Weather Icons
+        </a>
+        (Erik Flowers) |
+        🔤 Fonte
+        <a href="https://fonts.google.com/specimen/Poppins" target="_blank" rel="noopener noreferrer"
+          title="Poppins Font">
+          Poppins
+        </a>
+        (Google Fonts)
+      </p>
+      <p class="footer-links">
+        <a href="PRIVACY_POLICY.md" target="_blank" title="Política de Privacidade">📄 Privacidade</a> |
+        <a href="LICENSE" target="_blank" title="Licença MIT">⚖️ Licença MIT</a> |
+        <a href="NOTICE.md" target="_blank" title="Atribuições e Créditos">📜 Atribuições</a> |
+        <a href="https://github.com/cdouradom/weather_project" target="_blank" rel="noopener noreferrer"
+          title="Código-fonte no GitHub">💻 GitHub</a>
+      </p>
+      <p class="copyright">
+        © 2025 <strong>Cíntia Dourado</strong> - Open Source Software
+      </p>
+    </div>
+  </footer>
+
   <script src="./assets/js/script.js"></script>
 </body>
 
-</html> 
+</html>
