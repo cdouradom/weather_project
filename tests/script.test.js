@@ -28,33 +28,67 @@ beforeEach(() => {
 });
 
 // ---------------------------------------------------------
-// 4. Testes solicitados
+// 4. Testes atualizados para refletir novas variáveis
 // ---------------------------------------------------------
 
-// 1. Cidade válida retorna dados meteorológicos
-test("Cidade válida retorna coordenadas e clima", async () => {
-  const mockGeo = { results: [{ lat: -23.5, lon: -46.6 }] };
-  const mockWeather = { current_weather: { temperature: 22, weathercode: 1 } };
+// 1. Cidade válida retorna dados completos
+test("Cidade válida retorna coordenadas e clima completo", async () => {
+  const mockGeo = {
+    results: [{ lat: -23.5, lon: -46.6, name: "São Paulo", country: "BR" }]
+  };
 
-  fetch.mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(mockGeo) });
+  const mockWeather = {
+    current_weather: {
+      temperature: 22,
+      weathercode: 1,
+      windspeed: 15,
+      time: "2025-11-28T15:00"
+    },
+    hourly: {
+      relativehumidity_2m: [60],
+      precipitation: [0.8]
+    }
+  };
+
+  // Geocoder
+  fetch.mockResolvedValueOnce({
+    ok: true,
+    json: () => Promise.resolve(mockGeo)
+  });
   const coords = await getCoordinates("São Paulo");
-  expect(coords.lat).toBe(-23.5);
 
-  fetch.mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(mockWeather) });
+  expect(coords.lat).toBe(-23.5);
+  expect(coords.lon).toBe(-46.6);
+
+  // Clima completo
+  fetch.mockResolvedValueOnce({
+    ok: true,
+    json: () => Promise.resolve(mockWeather)
+  });
+
   const weather = await getWeather(-23.5, -46.6);
+
   expect(weather.temperature).toBe(22);
 });
 
 // 2. Cidade inexistente lança exceção tratada
 test("Cidade inexistente lança erro", async () => {
-  fetch.mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({ results: [] }) });
+  fetch.mockResolvedValueOnce({
+    ok: true,
+    json: () => Promise.resolve({ results: [] })
+  });
+
   await expect(getCoordinates("CidadeInexistente"))
     .rejects.toThrow("Cidade não encontrada");
 });
 
 // 3. Entrada vazia retorna erro de validação
 test("Entrada vazia lança erro", async () => {
-  fetch.mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({ results: [] }) });
+  fetch.mockResolvedValueOnce({
+    ok: true,
+    json: () => Promise.resolve({ results: [] })
+  });
+
   await expect(getCoordinates(""))
     .rejects.toThrow("Cidade não encontrada");
 });
@@ -62,25 +96,28 @@ test("Entrada vazia lança erro", async () => {
 // 4. Falha da API gera erro adequado
 test("Falha da API gera erro", async () => {
   fetch.mockResolvedValueOnce({ ok: false });
+
   await expect(getCoordinates("São Paulo"))
     .rejects.toThrow("Erro na requisição de geocodificação.");
 });
 
-// Adicional — limite de requisições excedido (429)
+// 5. Erro 429 tratado como falha da API
 test("Erro 429 tratado como falha da API", async () => {
   fetch.mockResolvedValueOnce({ ok: false, status: 429 });
+
   await expect(getCoordinates("São Paulo"))
     .rejects.toThrow("Erro na requisição de geocodificação.");
 });
 
-// Adicional — conexão instável / erro de rede
+// 6. Erro de rede tratado
 test("Erro de rede é tratado", async () => {
   fetch.mockRejectedValueOnce(new Error("Network error"));
+
   await expect(getCoordinates("Rio de Janeiro"))
     .rejects.toThrow("Network error");
 });
 
-// Adicional — JSON inesperado
+// 7. JSON inesperado
 test("JSON inesperado lança erro", async () => {
   fetch.mockResolvedValueOnce({
     ok: true,
@@ -89,4 +126,22 @@ test("JSON inesperado lança erro", async () => {
 
   await expect(getCoordinates("São Paulo"))
     .rejects.toThrow("Cidade não encontrada");
+});
+
+// 8. Weather com JSON incompleto
+test("Clima com JSON incompleto lança erro", async () => {
+  fetch
+    .mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({
+        results: [{ lat: 1, lon: 1 }]
+      })
+    })
+    .mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({ current_weather: {} }) // Sem dados essenciais
+    });
+
+  await expect(getWeather(1, 1))
+    .rejects.toThrow();
 });
