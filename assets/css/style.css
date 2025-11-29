@@ -1,6 +1,5 @@
 /* ============================
-   style.css — Dashboard Melhorado
-   Resultado organizado em grid
+   style.css — Dashboard Corrigido
    ============================ */
 
 /* ----------------------------
@@ -32,6 +31,7 @@
 html,
 body {
   height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -45,6 +45,7 @@ body {
   line-height: 1.35;
   padding: 0;
   margin: 0;
+  transition: background 0.8s ease;
 }
 
 body,
@@ -66,10 +67,8 @@ label {
   grid-template-columns: 1fr;
   gap: var(--gap);
   align-items: start;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.00), rgba(255, 255, 255, 0.00));
   position: relative;
   z-index: 10;
-  /* Garante que o conteúdo fique acima dos efeitos */
 }
 
 /* ----------------------------
@@ -121,6 +120,10 @@ input[type="text"] {
   transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
 }
 
+input[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
 input[type="text"]:focus {
   border-color: var(--accent);
   box-shadow: 0 6px 20px rgba(3, 18, 59, 0.10);
@@ -156,18 +159,8 @@ button:active {
   opacity: 0.95;
 }
 
-@media (max-width:420px) {
-  form {
-    gap: 10px;
-  }
-
-  button {
-    width: 100%;
-  }
-}
-
 /* ----------------------------
-   RESULTADO MELHORADO — Grid organizado
+   RESULTADO - Grid organizado
    ---------------------------- */
 .result {
   display: grid;
@@ -371,6 +364,151 @@ button:active {
 }
 
 /* ----------------------------
+   AVISO DE PRIVACIDADE
+   ---------------------------- */
+.privacy-notice {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  animation: slideDown 0.5s ease-out;
+}
+
+.privacy-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
+
+.privacy-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.privacy-content p {
+  margin: 0;
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-shadow: none;
+}
+
+.privacy-content strong {
+  font-weight: 600;
+}
+
+.privacy-content a {
+  color: #fff;
+  text-decoration: underline;
+  font-weight: 500;
+  transition: opacity 0.3s;
+}
+
+.privacy-content a:hover {
+  opacity: 0.8;
+}
+
+.privacy-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background 0.3s;
+  flex-shrink: 0;
+  min-width: unset;
+  padding: 0;
+  box-shadow: none;
+}
+
+.privacy-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: none;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ----------------------------
+   RODAPÉ COM ATRIBUIÇÕES
+   ---------------------------- */
+.attribution-footer {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 2rem 1rem;
+  margin-top: 4rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.attribution-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.attribution-content p {
+  margin: 0.75rem 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  text-shadow: none;
+}
+
+.attribution-content a {
+  color: #4fc3f7;
+  text-decoration: none;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+
+.attribution-content a:hover {
+  color: #81d4fa;
+  text-decoration: underline;
+}
+
+.footer-links {
+  padding: 0.5rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 1rem 0 !important;
+}
+
+.footer-links a {
+  margin: 0 0.5rem;
+  display: inline-block;
+}
+
+.copyright {
+  font-size: 0.85rem !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  margin-top: 1rem !important;
+}
+
+.copyright strong {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+}
+
+/* ----------------------------
    Responsividade
    ---------------------------- */
 
@@ -476,12 +614,64 @@ button:active {
   }
 }
 
+@media (max-width: 768px) {
+  .privacy-notice {
+    padding: 0.75rem;
+  }
+
+  .privacy-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .privacy-content p {
+    font-size: 0.85rem;
+  }
+
+  .privacy-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .attribution-footer {
+    padding: 1.5rem 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .attribution-content p {
+    font-size: 0.8rem;
+  }
+
+  .footer-links a {
+    display: block;
+    margin: 0.5rem 0;
+  }
+}
+
+@media (max-width:420px) {
+  form {
+    gap: 10px;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
 /* ----------------------------
    Acessibilidade
    ---------------------------- */
 button:focus,
 input[type="text"]:focus {
   outline: 3px solid rgba(0, 119, 255, 0.14);
+  outline-offset: 2px;
+}
+
+.privacy-close:focus,
+.attribution-content a:focus {
+  outline: 2px solid #4fc3f7;
   outline-offset: 2px;
 }
 
@@ -498,216 +688,26 @@ small,
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .privacy-notice {
+    animation: none;
+  }
+
+  .privacy-close,
+  .attribution-content a,
+  button,
+  input[type="text"],
+  .result-info-card,
+  .forecast-card {
+    transition: none;
+  }
+}
+
 .wi {
   display: inline-block;
   vertical-align: middle;
 }
 
 /* ============================
-   FIM do CSS melhorado
+   FIM do CSS
    ============================ */
-
-     /* ================================================================
-     AVISO DE PRIVACIDADE
-     ================================================================ */
-  
-     .privacy-notice {
-       position: fixed;
-       top: 0;
-       left: 0;
-       right: 0;
-       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-       color: white;
-       padding: 1rem;
-       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-       z-index: 9999;
-       animation: slideDown 0.5s ease-out;
-     }
-  
-     .privacy-content {
-       max-width: 1000px;
-       margin: 0 auto;
-       display: flex;
-       align-items: center;
-       gap: 1rem;
-       position: relative;
-     }
-  
-     .privacy-icon {
-       font-size: 1.5rem;
-       flex-shrink: 0;
-     }
-  
-     .privacy-content p {
-       margin: 0;
-       flex: 1;
-       font-size: 0.9rem;
-       line-height: 1.5;
-     }
-  
-     .privacy-content strong {
-       font-weight: 600;
-     }
-  
-     .privacy-content a {
-       color: #fff;
-       text-decoration: underline;
-       font-weight: 500;
-       transition: opacity 0.3s;
-     }
-  
-     .privacy-content a:hover {
-       opacity: 0.8;
-     }
-  
-     .privacy-close {
-       background: rgba(255, 255, 255, 0.2);
-       border: none;
-       color: white;
-       width: 32px;
-       height: 32px;
-       border-radius: 50%;
-       cursor: pointer;
-       font-size: 1.2rem;
-       transition: background 0.3s;
-       flex-shrink: 0;
-     }
-  
-     .privacy-close:hover {
-       background: rgba(255, 255, 255, 0.3);
-     }
-  
-     @keyframes slideDown {
-       from {
-         transform: translateY(-100%);
-         opacity: 0;
-       }
-  
-       to {
-         transform: translateY(0);
-         opacity: 1;
-       }
-     }
-  
-     /* ================================================================
-     RODAPÉ COM ATRIBUIÇÕES
-     ================================================================ */
-  
-     .attribution-footer {
-       background: rgba(0, 0, 0, 0.2);
-       backdrop-filter: blur(10px);
-       padding: 2rem 1rem;
-       margin-top: 4rem;
-       border-top: 1px solid rgba(255, 255, 255, 0.1);
-     }
-  
-     .attribution-content {
-       max-width: 1000px;
-       margin: 0 auto;
-       text-align: center;
-     }
-  
-     .attribution-content p {
-       margin: 0.75rem 0;
-       color: rgba(255, 255, 255, 0.9);
-       font-size: 0.9rem;
-       line-height: 1.6;
-     }
-  
-     .attribution-content a {
-       color: #4fc3f7;
-       text-decoration: none;
-       transition: all 0.3s;
-       font-weight: 500;
-     }
-  
-     .attribution-content a:hover {
-       color: #81d4fa;
-       text-decoration: underline;
-     }
-  
-     .footer-links {
-       padding: 0.5rem 0;
-       border-top: 1px solid rgba(255, 255, 255, 0.1);
-       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-       margin: 1rem 0 !important;
-     }
-  
-     .footer-links a {
-       margin: 0 0.5rem;
-       display: inline-block;
-     }
-  
-     .copyright {
-       font-size: 0.85rem !important;
-       color: rgba(255, 255, 255, 0.7) !important;
-       margin-top: 1rem !important;
-     }
-  
-     .copyright strong {
-       color: rgba(255, 255, 255, 0.95);
-       font-weight: 600;
-     }
-  
-     /* ================================================================
-     RESPONSIVIDADE
-     ================================================================ */
-  
-     @media (max-width: 768px) {
-       .privacy-notice {
-         padding: 0.75rem;
-       }
-  
-       .privacy-content {
-         flex-direction: column;
-         text-align: center;
-         gap: 0.5rem;
-       }
-  
-       .privacy-content p {
-         font-size: 0.85rem;
-       }
-  
-       .privacy-close {
-         position: absolute;
-         top: 0.5rem;
-         right: 0.5rem;
-       }
-  
-       .attribution-footer {
-         padding: 1.5rem 0.75rem;
-         margin-top: 2rem;
-       }
-  
-       .attribution-content p {
-         font-size: 0.8rem;
-       }
-  
-       .footer-links a {
-         display: block;
-         margin: 0.5rem 0;
-       }
-     }
-  
-     /* ================================================================
-     ACESSIBILIDADE
-     ================================================================ */
-  
-     /* Foco visível para navegação por teclado */
-     .privacy-close:focus,
-     .attribution-content a:focus {
-       outline: 2px solid #4fc3f7;
-       outline-offset: 2px;
-     }
-  
-     /* Redução de movimento para usuários sensíveis */
-     @media (prefers-reduced-motion: reduce) {
-       .privacy-notice {
-         animation: none;
-       }
-  
-       .privacy-close,
-       .attribution-content a {
-         transition: none;
-       }
-     }
